@@ -1,3 +1,9 @@
+---
+title: "README"
+author: "Bob Erdman"
+date: "September 18, 2020"
+output: github_document
+---
 This is a listing of Data Analytics projects, past and present.
 Including:
 1. A look at the accuracy of inventory counters in a factory warehouse.
@@ -7,3 +13,6 @@ at a major telecom provider.
 4. Can we predict unusual demand patterns at MARTA, Atlanta's subway system?
 5. A forecast of lease signings for the owners of apartment complexes.  Could we use this to optimize rent pricing and revenue?
 6. Merchandising at the store level for a beverage manufacturer
+
+
+
