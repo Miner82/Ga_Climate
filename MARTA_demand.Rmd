@@ -1,0 +1,113 @@
+---
+title: "MARTA_demand"
+author: "Bob Erdman"
+date: "September 23, 2020"
+output: github_document
+---
+We look for unusual, unforecasted demand patterns for riders in major city's  
+subway system. Based on Visual interpretation of noncyclical spikes. We do  
+background research to explain special events.
+
+Look at turnstile exit averages for April-October, 2017
+```{r setup, include=FALSE}
+library(dplyr)
+library(lubridate)
+library(reshape2)
+library(ggplot2)
+library(gridExtra)
+
+setwd("C:/Users/User/Desktop")
+
+# We look at turnstile exit averages for April-October, 2017
+Marta_LindExits <- read.csv("C:/Users/User/desktop/StatsPortfolio/MARTA_Monthly.csv", header = TRUE, sep = ",", stringsAsFactors = FALSE)
+
+Marta_LindExits <- as.data.frame(Marta_LindExits)
+mylist <- split(Marta_LindExits, Marta_LindExits$Month, order(Time))
+
+Apr_Exits <- as.data.frame(mylist[['Apr']])
+May_Exits <- as.data.frame(mylist[['May']])
+Jun_Exits <- as.data.frame(mylist[['Jun']])
+Jul_Exits <- as.data.frame(mylist[['Jul']])
+Aug_Exits <- as.data.frame(mylist[['Aug']])
+Sept_Exits <- as.data.frame(mylist[['Sep']])
+Oct_Exits <- as.data.frame(mylist[['Oct']])
+```
+
+Monthly Demand Plots  
+```{r, echo=FALSE}
+par(mfrow = c(3,3))
+p7 <- ggplot(Apr_Exits, aes(Time, Total_Exits)) + geom_line() + labs(title="Riders Exit April 2017", x="Hour", y="Riders") + ylim(0, 22000) + theme(plot.title = element_text(size=12))      
+p8 <- ggplot(May_Exits, aes(Time, Total_Exits)) +  geom_line() + labs(title="Riders Exit May 2017", x="Hour", y="Riders") +ylim(0, 22000) + theme(plot.title = element_text(size=12))
+p9 <- ggplot(Jun_Exits, aes(Time, Total_Exits)) + geom_line() + labs(title="Riders Exit June 2017", x="Hour", y="Riders") + ylim(0, 22000) + theme(plot.title = element_text(size=12))              
+p10 <- ggplot(Jul_Exits, aes(Time, Total_Exits)) +  geom_line() + labs(title="Riders Exit July 2017", x="Hour", y="Riders") +ylim(0, 22000) + theme(plot.title = element_text(size=12))
+p11 <- ggplot(Aug_Exits, aes(Time, Total_Exits)) + geom_line() + labs(title="Riders Exit August 2017", x="Hour", y="Riders") + ylim(0, 22000) + theme(plot.title = element_text(size=12))             
+p12 <- ggplot(Sept_Exits, aes(Time, Total_Exits)) +  geom_line() + labs(title="Riders Exit Sept 2017", x="Hour", y="Riders") +ylim(0, 22000) + theme(plot.title = element_text(size=12))
+p13 <- ggplot(Oct_Exits, aes(Time, Total_Exits)) +  geom_line() + labs(title="Riders Exit October 2017", x="Hour", y="Riders") +ylim(0, 22000) + theme(plot.title = element_text(size=12))
+p14 <- grid.arrange(p7, p8, p9, p10, p11, p12, p13, ncol=3, top="Riders Exiting Lindberg Apr-Oct 2017")
+
+```
+  
+We look at weekends during the month of July.  Atlanta United FBol Home games:  
+April 30, May 20, 28. June 17, 24.  July 4, 29.  
+```{r, echo=FALSE}
+Martarrivls <- read.csv("C:/Users/User/desktop/StatsPortfolio/LindMnthJuly2.csv", header = TRUE, sep = ",", stringsAsFactors = FALSE)
+Martarrivls2 <- as.data.frame(Martarrivls)
+
+mylist <- split(Martarrivls2, Martarrivls2$Date)
+July_1 <- as.data.frame(mylist[['7/1/2017']])
+July_8 <- as.data.frame(mylist[['7/8/2017']])
+July_15 <- as.data.frame(mylist[['7/15/2017']])
+July_22 <- as.data.frame(mylist[['7/22/2017']])
+July_29 <- as.data.frame(mylist[['7/29/2017']])
+
+July_1$Hour <- as.numeric(gsub(":", ".", July_1$Hour)) 
+July_8$Hour <- as.numeric(gsub(":", ".", July_8$Hour))  
+July_15$Hour <- as.numeric(gsub(":", ".", July_15$Hour))  
+July_22$Hour <- as.numeric(gsub(":", ".", July_22$Hour)) 
+July_29$Hour <- as.numeric(gsub(":", ".", July_29$Hour))  
+```
+Plots for Month of July, 2017 
+```{r, echo=FALSE}
+par(mfrow = c(3,3))
+#par(mfrow = c(3,2))
+p1 <- ggplot(July_1, aes(Hour, Riders)) + geom_line() + labs(title="July 1", x="Hour") + ylim(0, 800) +       theme(plot.title = element_text(size=12)) 
+p2 <- ggplot(July_8, aes(Hour, Riders)) + geom_line() + labs(title="July 8", x="Hour") + ylim(0, 800) +
+ theme(plot.title = element_text(size=12))  
+p3 <- ggplot(July_15, aes(Hour, Riders)) + geom_line() + labs(title="July 15", x="Hour") + ylim(0, 800) +
+ theme(plot.title = element_text(size=12))  
+p4 <- ggplot(July_22, aes(Hour, Riders)) + geom_line() + labs(title= "July 22", x="Hour") + ylim(0, 800) +
+  theme(plot.title = element_text(size=12))  
+p5 <- ggplot(July_29, aes(Hour, Riders)) + geom_line(color="red") + labs(title="July 29", x="Hour") + ylim(0, 800) +
+  theme(plot.title = element_text(size=12))  
+p6 <- grid.arrange(p1, p2, p3, p4, p5, ncol=5, top="Rider Entries Lindbergh Station July 2017")
+```
+  
+Finally we look for unusual demand for July 4, 2017 - A Tuesday.    
+Fireworks, and a UFC match.
+```{r, echo=FALSE}
+Martarrivls3 <- as.data.frame(Martarrivls)
+Tues_list <- split(Martarrivls3, Martarrivls2$Date)
+
+July_4 <- as.data.frame(Tues_list[['7/4/2017']])
+July_11 <- as.data.frame(Tues_list[['7/11/2017']])
+July_18 <- as.data.frame(Tues_list[['7/18/2017']])
+July_25 <- as.data.frame(Tues_list[['7/25/2017']])
+July_4$Hour <- as.numeric(gsub(":", ".", July_4$Hour)) 
+July_11$Hour <- as.numeric(gsub(":", ".", July_11$Hour))  
+July_18$Hour <- as.numeric(gsub(":", ".", July_18$Hour))  
+July_25$Hour <- as.numeric(gsub(":", ".", July_25$Hour)) 
+```
+Plot the July 4th festivities vs. other Tuesdays:
+```{r, echo=FALSE}
+par(mfrow = c(2,2))
+p7 <- ggplot(July_4, aes(Hour, Riders)) + geom_line(color="red") + labs(title="Riders July 4", x="Hour", y="Riders") + ylim(0, 1500) + theme(plot.title = element_text(size=12)) 
+p8 <- ggplot(July_11, aes(Hour, Riders)) +  geom_line() + labs(title="Riders July 11", x="Hour", y="Riders") +ylim(0, 1500) + theme(plot.title = element_text(size=12)) 
+
+p9 <- ggplot(July_18, aes(Hour, Riders)) +  geom_line() + labs(title="Riders July 18", x="Hour", y="Riders") +ylim(0, 1500) + theme(plot.title = element_text(size=12)) 
+
+p10 <- ggplot(July_25, aes(Hour, Riders)) +  geom_line() + labs(title="Riders July 25", x="Hour", y="Riders") +ylim(0, 1500) + theme(plot.title = element_text(size=12)) 
+
+p11 <- grid.arrange(p7, p8, p9, p10, ncol=4, top="Tuesday riders Lindbergh Station. July 2017")
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
