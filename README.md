@@ -12,7 +12,8 @@ at a major telecom provider.
 3. How is global warming affecting crop yields in S. Georgia?
 4. Can we predict unusual demand patterns at MARTA, Atlanta's subway system?
 5. A forecast of lease signings for the owners of apartment complexes.  Could we use this to optimize rent pricing and revenue?
-6. Merchandising at the store level for a beverage manufacturer
+6. How does supply of Apartment units affect revenue for a leasing firm?
+7. Merchandising at the store level for a beverage manufacturer
 More to follow
 
 
