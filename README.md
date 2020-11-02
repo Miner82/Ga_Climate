@@ -4,16 +4,10 @@ author: "Bob Erdman"
 date: "September 18, 2020"
 output: github_document
 ---
-This is a listing of Data Analytics projects, past and present.
-Including:
-1. A look at the accuracy of inventory counters in a factory warehouse.
-2. An analysis of alarms and monitoring software used to protect routers and servers 
-at a major telecom provider.
-3. How is global warming affecting crop yields in S. Georgia?
-4. Can we predict unusual demand patterns at MARTA, Atlanta's subway system?
-5. A forecast of lease signings for the owners of apartment complexes.  Could we use this to optimize rent pricing and revenue?
-6. How does supply of Apartment units affect revenue for a leasing firm?
-7. Merchandising at the store level for a beverage manufacturer
-More to follow
+In this project, we wanted to investigate the effect of temperature and rainfall on crop yields, for two typical agricultural
+regions in the State of Georgia: Sumter county (home of Plains and peanut/cotton production), and Toombs, source of Vidalia onions.
+Happily, the Univ. of GA agricultural research and climate studies faculty were able to provide weather data by county from the early 90's 
+to 2010.    For crop yield data, the USDA crop census provides a county/state breakdown for crop commodities.    
+
 
 
